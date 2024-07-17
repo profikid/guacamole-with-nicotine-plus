@@ -17,6 +17,7 @@ services:
       POSTGRES_USER: guacamole_user
       POSTGRES_PASSWORD: guacamole_pass
       GUACAMOLE_HOME: /config/guacamole
+      GUACAMOLE_WEBAPP_CONTEXT: /guacamole
     depends_on:
       - guacd
       - postgres
