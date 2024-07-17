@@ -25,17 +25,33 @@ services:
     networks:
       - guacnetwork
 
-  guacamole:
+  init-guacamole-db:
     image: guacamole/guacamole
     environment:
-      GUACD_HOSTNAME: guacd
       POSTGRES_HOSTNAME: postgres
       POSTGRES_DATABASE: guacamole_db
       POSTGRES_USER: guacamole
       POSTGRES_PASSWORD: guacamole_password
+    networks:
+      - guacnetwork
+    depends_on:
+      - postgres
+    command: ["/opt/guacamole/bin/initdb.sh", "--postgres"]
+    volumes:
+      - ./init:/opt/guacamole/init
+
+  guacamole:
+    image: guacamole/guacamole
+    environment:
+      GUACD_HOSTNAME: guacd
+      POSTGRESQL_HOSTNAME: postgres
+      POSTGRESQL_DATABASE: guacamole_db
+      POSTGRESQL_USER: guacamole
+      POSTGRESQL_PASSWORD: guacamole_password
     depends_on:
       - guacd
       - postgres
+      - init-guacamole-db
     networks:
       - guacnetwork
     ports:
