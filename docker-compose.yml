@@ -2,13 +2,14 @@ version: '3'
 
 services:
   guacd:
-    image: guacamole/guacd
+    image: amd64/guacd
     platform: linux/arm64
     networks:
       - guacnetwork
 
   guacamole:
-    image: guacamole/guacamole
+    image: amd64/guacamole
+    platform: linux/arm64
     networks:
       - guacnetwork
     environment:
