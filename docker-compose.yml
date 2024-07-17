@@ -19,6 +19,13 @@ services:
     depends_on:
       - guacd
       - postgres
+    ports:
+      - "8080"
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:8080/guacamole/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
   postgres:
     image: postgres:13
@@ -41,7 +48,8 @@ services:
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
     depends_on:
-      - guacamole
+      guacamole:
+        condition: service_healthy
 
   alpine-client:
     build:
