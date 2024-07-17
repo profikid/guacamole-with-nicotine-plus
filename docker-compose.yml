@@ -16,11 +16,14 @@ services:
       POSTGRES_DATABASE: guacamole_db
       POSTGRES_USER: guacamole_user
       POSTGRES_PASSWORD: guacamole_pass
+      GUACAMOLE_HOME: /config/guacamole
     depends_on:
       - guacd
       - postgres
     ports:
-      - "8080"
+      - "8080:8080"
+    volumes:
+      - guacamole_config:/config/guacamole
     healthcheck:
       test: ["CMD", "wget", "-q", "--spider", "http://localhost:8080/guacamole/"]
       interval: 30s
@@ -66,3 +69,4 @@ networks:
 
 volumes:
   postgres-data:
+  guacamole_config:
