@@ -11,6 +11,47 @@ services:
       - "5900:5900"
       - "2234-2239:2234-2239"  # Default Nicotine+ ports
 
+  guacd:
+    image: guacamole/guacd
+    networks:
+      - guacnetwork
+
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: guacamole
+      POSTGRES_PASSWORD: guacamole_password
+      POSTGRES_DB: guacamole_db
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - guacnetwork
+
+  guacamole:
+    image: guacamole/guacamole
+    environment:
+      GUACD_HOSTNAME: guacd
+      POSTGRES_HOSTNAME: postgres
+      POSTGRES_DATABASE: guacamole_db
+      POSTGRES_USER: guacamole
+      POSTGRES_PASSWORD: guacamole_password
+    depends_on:
+      - guacd
+      - postgres
+    networks:
+      - guacnetwork
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - guacamole
+    networks:
+      - guacnetwork
+
 networks:
   guacnetwork:
 
