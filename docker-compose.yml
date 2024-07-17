@@ -17,7 +17,6 @@ services:
       POSTGRES_USER: guacamole_user
       POSTGRES_PASSWORD: guacamole_pass
       GUACAMOLE_HOME: /config/guacamole
-      GUACAMOLE_WEBAPP_CONTEXT: /guacamole
     depends_on:
       - guacd
       - postgres
@@ -26,7 +25,7 @@ services:
     volumes:
       - guacamole_config:/config/guacamole
     healthcheck:
-      test: ["CMD", "wget", "-q", "--spider", "http://localhost:8080/guacamole/"]
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:8080/"]
       interval: 30s
       timeout: 10s
       retries: 3
