@@ -26,13 +26,13 @@ RUN mkdir -p /home/guacuser/.vnc && \
     chmod 600 /home/guacuser/.vnc/passwd
 
 # Create xstartup file to launch Nicotine+ in fullscreen
-RUN echo '#!/bin/sh\n\
-Xvfb :1 -screen 0 1280x800x24 &\n\
-export DISPLAY=:1\n\
-openbox &\n\
-. /home/guacuser/nicotine-venv/bin/activate\n\
-nicotine --fullscreen &\n\
-x11vnc -display :1 -forever -usepw -create' > /home/guacuser/.vnc/xstartup && \
+RUN echo '#!/bin/sh' > /home/guacuser/.vnc/xstartup && \
+    echo 'Xvfb :1 -screen 0 1280x800x24 &' >> /home/guacuser/.vnc/xstartup && \
+    echo 'export DISPLAY=:1' >> /home/guacuser/.vnc/xstartup && \
+    echo 'openbox &' >> /home/guacuser/.vnc/xstartup && \
+    echo '. /home/guacuser/nicotine-venv/bin/activate' >> /home/guacuser/.vnc/xstartup && \
+    echo 'nicotine --fullscreen &' >> /home/guacuser/.vnc/xstartup && \
+    echo 'x11vnc -display :1 -forever -usepw -create' >> /home/guacuser/.vnc/xstartup && \
     chmod +x /home/guacuser/.vnc/xstartup
 
 EXPOSE 5900
