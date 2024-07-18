@@ -53,12 +53,22 @@ FROM guacamole_connection
 WHERE connection_name = 'Nicotine+';
 
 INSERT INTO guacamole_connection_parameter (connection_id, parameter_name, parameter_value)
-SELECT connection_id, 'port', '5900'
+SELECT connection_id, 'port', '5901'
 FROM guacamole_connection
 WHERE connection_name = 'Nicotine+';
 
 INSERT INTO guacamole_connection_parameter (connection_id, parameter_name, parameter_value)
 SELECT connection_id, 'password', 'password'
+FROM guacamole_connection
+WHERE connection_name = 'Nicotine+';
+
+INSERT INTO guacamole_connection_parameter (connection_id, parameter_name, parameter_value)
+SELECT connection_id, 'width', '1024'
+FROM guacamole_connection
+WHERE connection_name = 'Nicotine+';
+
+INSERT INTO guacamole_connection_parameter (connection_id, parameter_name, parameter_value)
+SELECT connection_id, 'height', '768'
 FROM guacamole_connection
 WHERE connection_name = 'Nicotine+';
 
