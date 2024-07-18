@@ -24,6 +24,11 @@ services:
       - postgres-data:/var/lib/postgresql/data
     networks:
       - guacnetwork
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U guacamole"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   init-guacamole-db:
     image: guacamole/guacamole
@@ -49,9 +54,12 @@ services:
       POSTGRESQL_USER: guacamole
       POSTGRESQL_PASSWORD: guacamole_password
     depends_on:
-      - guacd
-      - postgres
-      - init-guacamole-db
+      postgres:
+        condition: service_healthy
+      guacd:
+        condition: service_started
+      init-guacamole-db:
+        condition: service_completed_successfully
     networks:
       - guacnetwork
     ports:
