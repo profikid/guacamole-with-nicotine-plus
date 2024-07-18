@@ -14,12 +14,12 @@ FROM guacamole_entity WHERE name = 'guacadmin';
 --
 
 INSERT INTO guacamole_system_permission (entity_id, permission)
-SELECT entity_id, permission
+SELECT entity_id, permission::guacamole_system_permission_type
 FROM (
     VALUES
         ('guacadmin', 'CREATE_CONNECTION'),
         ('guacadmin', 'CREATE_CONNECTION_GROUP'),
-        ('guacammin', 'CREATE_SHARING_PROFILE'),
+        ('guacadmin', 'CREATE_SHARING_PROFILE'),
         ('guacadmin', 'CREATE_USER'),
         ('guacadmin', 'ADMINISTER')
 ) permissions (username, permission)
@@ -56,7 +56,7 @@ WHERE connection_name = 'Nicotine+';
 --
 
 INSERT INTO guacamole_connection_permission (entity_id, connection_id, permission)
-SELECT guacamole_entity.entity_id, guacamole_connection.connection_id, permission
+SELECT guacamole_entity.entity_id, guacamole_connection.connection_id, permission::guacamole_object_permission_type
 FROM (
     VALUES
         ('guacadmin', 'READ'),
