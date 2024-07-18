@@ -87,3 +87,22 @@ FROM (
 ) permissions (username, permission)
 JOIN guacamole_entity ON permissions.username = guacamole_entity.name AND guacamole_entity.type = 'USER'
 JOIN guacamole_connection ON guacamole_connection.connection_name = 'Nicotine+';
+-- Add VNC connection for Nicotine+
+INSERT INTO guacamole_connection (connection_name, protocol)
+VALUES ('Nicotine+', 'vnc');
+
+-- Get the connection_id
+DO $$
+DECLARE
+    connection_id INT;
+BEGIN
+    SELECT currval(pg_get_serial_sequence('guacamole_connection', 'connection_id')) INTO connection_id;
+
+    -- Add connection parameters
+    INSERT INTO guacamole_connection_parameter (connection_id, parameter_name, parameter_value)
+    VALUES
+    (connection_id, 'hostname', 'alpine-client'),
+    (connection_id, 'port', '5900'),
+    (connection_id, 'password', 'password'),
+    (connection_id, 'ignore-cert', 'true');
+END $$;
