@@ -2,6 +2,14 @@
 
 This project sets up a Guacamole server with an Alpine Linux-based VNC client running Nicotine+ (a Soulseek client) in fullscreen mode. The entire setup is containerized using Docker and orchestrated with Docker Compose.
 
+## Components
+
+- **Alpine Client**: A lightweight Alpine Linux container with VNC access and Nicotine+ installed.
+- **Guacamole**: Web application providing remote desktop access.
+- **guacd**: Guacamole proxy daemon.
+- **PostgreSQL**: Database for Guacamole.
+- **Nginx**: Reverse proxy for Guacamole.
+
 ## Prerequisites
 
 - Docker
@@ -20,11 +28,13 @@ This project sets up a Guacamole server with an Alpine Linux-based VNC client ru
    docker-compose up -d --build
    ```
 
-3. Access Guacamole at `http://localhost:8080/guacamole/`
+3. Access Guacamole at `http://localhost:80`
 
 4. Log in with the default credentials:
    - Username: guacadmin
    - Password: guacadmin
+
+   **Important**: Change these credentials after first login.
 
 5. The Nicotine+ VNC connection should be preconfigured and available.
 
@@ -36,10 +46,15 @@ This project sets up a Guacamole server with an Alpine Linux-based VNC client ru
 
 3. Configure Nicotine+ with your Soulseek credentials and desired settings.
 
+## Ports
+
+- Guacamole Web Interface: 80
+- VNC: 5900
+- Nicotine+: 2234-2239
+
 ## Notes
 
-- The VNC password is set to "password". Change this in the Dockerfile and initdb.sql for better security.
-- Nicotine+ uses ports 2234-2239 by default. These are exposed in the Docker Compose file.
+- The VNC password is set to "password". Change this in the Dockerfile for better security.
 - This setup is for demonstration purposes. In a production environment, implement proper security measures.
 - Nicotine+ is installed in a Python virtual environment within an Alpine Linux container.
 
@@ -54,6 +69,12 @@ If you encounter issues:
 2. Ensure all ports are correctly mapped and not in use by other services.
 3. Verify your firewall settings allow the required connections.
 4. If Nicotine+ doesn't start, try connecting to the VNC session and starting it manually to see any error messages.
+
+## Customization
+
+- Modify `docker-compose.yml` to change service configurations.
+- Edit `nginx.conf` to adjust the Nginx reverse proxy settings.
+- Update `Dockerfile` to customize the Alpine client or Nicotine+ installation.
 
 ## Contributing
 
