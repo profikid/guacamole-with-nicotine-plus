@@ -40,8 +40,9 @@ services:
     networks:
       - guacnetwork
     depends_on:
-      - postgres
-    command: ["/opt/guacamole/bin/initdb.sh", "--postgres"]
+      postgres:
+        condition: service_healthy
+    command: ["/bin/sh", "/opt/guacamole/init/initdb.sh"]
     volumes:
       - ./init:/opt/guacamole/init
 
