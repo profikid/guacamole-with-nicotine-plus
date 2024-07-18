@@ -10,6 +10,7 @@ This project sets up a Guacamole server with an Alpine Linux-based VNC client ru
 - **Guacamole**: Web application providing remote desktop access.
 - **guacd**: Guacamole proxy daemon.
 - **PostgreSQL**: Database for Guacamole.
+- **pgAdmin**: Web-based PostgreSQL administration tool.
 - **Nginx**: Reverse proxy for Guacamole.
 
 ## Prerequisites
@@ -53,12 +54,16 @@ This project sets up a Guacamole server with an Alpine Linux-based VNC client ru
 - Guacamole Web Interface: 80
 - VNC: 5900
 - Nicotine+: 2234-2239
+- PostgreSQL: 5432
+- pgAdmin: 5050
 
 ## Notes
 
 - The VNC password is set to "password". Change this in the Dockerfile for better security.
 - This setup is for demonstration purposes. In a production environment, implement proper security measures.
 - Nicotine+ is installed in a Python virtual environment within an Alpine Linux container.
+- The `.local` directory for Nicotine+ is mounted as a volume to persist configuration and data.
+- Downloaded files are stored in the `./downloads` directory on the host machine.
 
 ## Legal Considerations
 
