@@ -10,7 +10,10 @@ services:
       - "2234-2239:2234-2239"  # Default Nicotine+ ports
 
   guacd:
-    image: lscr.io/linuxserver/guacd:latest
+    image: guacamole/guacd
+    ports:
+      - 4822:4822
+    restart: unless-stopped
     networks:
       - guacnetwork
 
@@ -62,6 +65,7 @@ services:
     image: guacamole/guacamole
     environment:
       GUACD_HOSTNAME: guacd
+      GUACD_PORT: 4822
       POSTGRESQL_HOSTNAME: postgres
       POSTGRESQL_DATABASE: guacamole
       POSTGRESQL_USER: guacamole
