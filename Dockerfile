@@ -6,7 +6,8 @@ RUN apk add --no-cache python3 py3-pip xvfb x11vnc openbox xterm \
     py3-gobject3 py3-cairo py3-mutagen py3-geoip2 \
     python3-dev build-base cairo-dev pkgconfig \
     gobject-introspection-dev \
-    tigervnc xorg-server
+    tigervnc xorg-server \
+    ttf-dejavu ttf-liberation ttf-freefont
 
 # Set up X11 unix socket directory
 RUN mkdir -p /tmp/.X11-unix && chmod 1777 /tmp/.X11-unix
@@ -53,4 +54,4 @@ RUN echo '#!/bin/sh' > /home/guacuser/.vnc/xstartup && \
 
 EXPOSE 5900
 
-CMD ["x11vnc", "-forever", "-usepw", "-create", "-noxdamage", "-nowf", "-noscr"]
+CMD ["sh", "-c", "x11vnc -forever -usepw -create -noxdamage -nowf -noscr -bg -xkb && tail -f /dev/null"]
