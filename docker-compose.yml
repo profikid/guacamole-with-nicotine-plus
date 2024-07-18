@@ -42,7 +42,7 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-    command: ["/bin/sh", "/opt/guacamole/init/initdb.sh"]
+    command: ["/bin/sh", "-c", "chmod +x /opt/guacamole/init/initdb.sh && /opt/guacamole/init/initdb.sh"]
     volumes:
       - ./init:/opt/guacamole/init
 
