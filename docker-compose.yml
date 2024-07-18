@@ -14,6 +14,18 @@ services:
     depends_on:
       - dropbox
 
+  dropbox:
+    image: janeczku/dropbox
+    volumes:
+      - ./downloads:/dropbox/Downloads
+      - dropbox-data:/dropbox
+    environment:
+      - DROPBOX_UID=1000
+      - DROPBOX_GID=1000
+    restart: unless-stopped
+    networks:
+      - guacnetwork
+
   guacd:
     image: guacamole/guacd
     ports:
