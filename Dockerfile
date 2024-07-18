@@ -20,7 +20,7 @@ WORKDIR /home/guacuser
 RUN python3 -m venv /home/guacuser/nicotine-venv && \
     . /home/guacuser/nicotine-venv/bin/activate && \
     pip install --upgrade pip && \
-    pip install --no-cache-dir nicotine-plus && \
+    pip install --no-cache-dir nicotine-plus pyxdg && \
     deactivate
 
 # Set up VNC
