@@ -53,4 +53,4 @@ RUN echo '#!/bin/sh' > /home/guacuser/.vnc/xstartup && \
 
 EXPOSE 5900
 
-CMD ["/bin/sh", "-c", "/home/guacuser/.vnc/xstartup"]
+CMD ["x11vnc", "-forever", "-usepw", "-create"]
