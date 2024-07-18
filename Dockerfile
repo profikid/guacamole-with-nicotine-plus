@@ -6,7 +6,10 @@ RUN apk add --no-cache python3 py3-pip xvfb x11vnc openbox xterm \
     py3-gobject3 py3-cairo py3-mutagen py3-geoip2 \
     python3-dev build-base cairo-dev pkgconfig \
     gobject-introspection-dev \
-    tigervnc
+    tigervnc xorg-server
+
+# Set up X11 unix socket directory
+RUN mkdir -p /tmp/.X11-unix && chmod 1777 /tmp/.X11-unix
 
 # Set up a user
 RUN adduser -D guacuser
@@ -42,8 +45,11 @@ RUN echo '#!/bin/sh' > /home/guacuser/.vnc/xstartup && \
     echo 'export DISPLAY=:0' >> /home/guacuser/.vnc/xstartup && \
     echo 'x11vnc -display :0 -forever -usepw -create &' >> /home/guacuser/.vnc/xstartup && \
     echo 'sleep 1' >> /home/guacuser/.vnc/xstartup && \
-    echo 'xinit /home/guacuser/.xinitrc' >> /home/guacuser/.vnc/xstartup && \
-    chmod +x /home/guacuser/.vnc/xstartup /home/guacuser/.xinitrc
+    echo 'openbox-session &' >> /home/guacuser/.vnc/xstartup && \
+    echo '. /home/guacuser/nicotine-venv/bin/activate' >> /home/guacuser/.vnc/xstartup && \
+    echo 'nicotine &' >> /home/guacuser/.vnc/xstartup && \
+    echo 'exec xterm' >> /home/guacuser/.vnc/xstartup && \
+    chmod +x /home/guacuser/.vnc/xstartup
 
 EXPOSE 5900
 
