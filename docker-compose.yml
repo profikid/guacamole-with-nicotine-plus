@@ -11,6 +11,8 @@ services:
     volumes:
       - ./downloads:/home/guacuser/.local/share/nicotine/downloads
       - nicotine-data:/home/guacuser/.local
+    depends_on:
+      - dropbox
 
   guacd:
     image: guacamole/guacd
@@ -105,4 +107,5 @@ volumes:
   postgres-data:
   guacamole_config:
   nicotine-data:
+  dropbox-data:
 
