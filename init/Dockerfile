@@ -7,6 +7,8 @@ USER root
 RUN apt-get update && apt-get install -y postgresql-client && rm -rf /var/lib/apt/lists/*
 
 # Copy the initialization script
+COPY add_connection.sql ./add_connection.sql
+RUN chmod +x ./add_connection.sql
 COPY initdb.sh ./initdb.sh
 RUN chmod +x ./initdb.sh
 
