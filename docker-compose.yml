@@ -10,7 +10,7 @@ services:
       - "2234-2239:2234-2239"  # Default Nicotine+ ports
 
   guacd:
-    image: guacamole/guacd
+    image: lscr.io/linuxserver/guacd:latest
     networks:
       - guacnetwork
 
@@ -24,14 +24,29 @@ services:
       - postgres-data:/var/lib/postgresql/data
     networks:
       - guacnetwork
+    ports:
+      - "5432:5432"
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U guacamole"]
       interval: 10s
       timeout: 5s
       retries: 5
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin_password
+    ports:
+      - "5050:80"
+    networks:
+      - guacnetwork
+    depends_on:
+      - postgres
 
   init-guacamole-db:
-    image: guacamole/guacamole
+    build:
+      context: ./init
+      dockerfile: Dockerfile
     environment:
       POSTGRES_HOSTNAME: postgres
       POSTGRES_DATABASE: guacamole_db
@@ -42,9 +57,6 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-    command: ["/bin/sh", "-c", "chmod +x /opt/guacamole/init/initdb.sh && /opt/guacamole/init/initdb.sh"]
-    volumes:
-      - ./init:/opt/guacamole/init
 
   guacamole:
     image: guacamole/guacamole
@@ -83,3 +95,4 @@ networks:
 volumes:
   postgres-data:
   guacamole_config:
+
