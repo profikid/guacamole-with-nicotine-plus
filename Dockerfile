@@ -14,8 +14,13 @@ RUN mkdir -p /tmp/.X11-unix && chmod 1777 /tmp/.X11-unix
 
 # Set up a user
 RUN adduser -D guacuser
-USER guacuser
 WORKDIR /home/guacuser
+
+# Create necessary directories with correct permissions
+RUN mkdir -p /home/guacuser/.local/share/nicotine/logs/rooms && \
+    chown -R guacuser:guacuser /home/guacuser/.local
+
+USER guacuser
 
 # Create virtual environment and install Nicotine+
 RUN python3 -m venv /home/guacuser/nicotine-venv && \

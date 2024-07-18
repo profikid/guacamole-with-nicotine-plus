@@ -10,6 +10,7 @@ services:
       - "2234-2239:2234-2239"  # Default Nicotine+ ports
     volumes:
       - ./downloads:/home/guacuser/.local/share/nicotine/downloads
+      - nicotine-data:/home/guacuser/.local
 
   guacd:
     image: guacamole/guacd
@@ -103,4 +104,5 @@ networks:
 volumes:
   postgres-data:
   guacamole_config:
+  nicotine-data:
 

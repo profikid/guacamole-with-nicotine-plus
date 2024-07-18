@@ -50,7 +50,8 @@ BEGIN
     (connection_id, 'password', 'password'),
     (connection_id, 'ignore-cert', 'true'),
     (connection_id, 'width', '1280'),
-    (connection_id, 'height', '800');
+    (connection_id, 'height', '800'),
+    (connection_id, 'color-depth', '24');
 
     -- Grant the guacadmin user access to this connection
     INSERT INTO guacamole_connection_permission (entity_id, connection_id, permission)
