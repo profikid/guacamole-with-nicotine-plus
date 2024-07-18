@@ -41,7 +41,7 @@ RUN echo '#!/bin/sh' > /home/guacuser/.xinitrc && \
 
 # Create xstartup file to launch X server and Nicotine+
 RUN echo '#!/bin/sh' > /home/guacuser/.vnc/xstartup && \
-    echo 'Xvfb :0 -screen 0 1280x800x24 &' >> /home/guacuser/.vnc/xstartup && \
+    echo 'Xvfb :0 -screen 0 1280x800x24 -ac &' >> /home/guacuser/.vnc/xstartup && \
     echo 'export DISPLAY=:0' >> /home/guacuser/.vnc/xstartup && \
     echo 'x11vnc -display :0 -forever -usepw -create &' >> /home/guacuser/.vnc/xstartup && \
     echo 'sleep 1' >> /home/guacuser/.vnc/xstartup && \
