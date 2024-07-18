@@ -60,6 +60,8 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+    volumes:
+      - ./init/add_connection.sql:/docker-entrypoint-initdb.d/add_connection.sql
 
   guacamole:
     image: guacamole/guacamole
