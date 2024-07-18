@@ -8,6 +8,8 @@ services:
     ports:
       - "5900:5900"
       - "2234-2239:2234-2239"  # Default Nicotine+ ports
+    volumes:
+      - ./add download:/home/guacuser/add download
 
   guacd:
     image: guacamole/guacd
