@@ -2,7 +2,12 @@
 
 ![Guacamole Logo](logo.webp)
 
-This project sets up a Guacamole server with an Alpine Linux-based VNC client running Nicotine+ (a Soulseek client) in fullscreen mode. The entire setup is containerized using Docker and orchestrated with Docker Compose.
+## TLDR;
+Soulseek in the browser, downloads on the server
+
+## How it works?
+This project sets up a Guacamole server with an Alpine Linux-based VNC client running Nicotine+ (a Soulseek client) in fullscreen mode. 
+The entire setup is containerized using Docker and orchestrated with Docker Compose.
 
 ## Components
 
@@ -22,8 +27,8 @@ This project sets up a Guacamole server with an Alpine Linux-based VNC client ru
 
 1. Clone this repository:
    ```
-   git clone <repository-url>
-   cd <repository-directory>
+   git clone https://github.com/profikid/guacamole-with-nicotine-plus
+   cd guacamole-with-nicotine-plus
    ```
 
 2. Build and start the containers:
